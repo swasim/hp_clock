@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS + CSS Clock</title>
+  <style>
+
+    body {
+
+        background:url(http://res.cloudinary.com/dlfsi4ilj/image/upload/v1518275570/clock_rwwbz1.jpg);
+        font-size: 1em;
+        font-size: calc(2vw + 2vh);
+    }
+    .container{
+        top:7%;
+        left:8%;
+        width:85%;
+        height: 85%;
+        position: fixed;
+    }
+
+    .clock{
+        top:30%;
+        left:20%;
+        width:50%;
+        height: 50%;
+        position: fixed;
+        margin:5%;
+    }
+
+    .clock-face {
+        position: fixed;
+        width:50%;
+        height: 50%;
+        left:25%;
+        top:35%;
+        transform: translateY(-3px); /* account for the height of the clock hands */
+    }
+    .clock-face:after {
+        background: #fff;
+        border-radius: 50%;
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 52%;
+        transform: translate(-50%, -50%);
+        width: 7%;
+        height: 7%;
+        z-index: 10;
+    }
+
+    .hand {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        top:52%;
+        position: fixed;
+        transform-origin: 100%;
+        transform: rotate(90deg);
+        transition: all 0.05s;
+        transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    }
+
+    .min-hand{
+        width:25%;
+        left:24%;
+        height:4px;
+        background:white;
+        border: 2px black solid;
+    }
+    .hour-hand{
+        width:17%;
+        left:32%;
+        height:4px;
+        background:white;
+        border: 2px black solid;
+    }
+    .sec-hand{
+        width:35%;
+        left:22%;
+        transform-origin: 80%;
+        height:6px;
+        z-index: 8;
+        background:red;
+    }
+    span {
+        position:fixed;
+    }
+    .twelve,.three,.six,.nine {
+        position: fixed;
+        font-family: Lato, sans-serif;
+        color: #fff;
+    }
+    .twelve {
+        left: 46%;
+        top:6%;
+    }
+
+    .three {
+       top: 52%;
+       right: 8%;
+    }
+
+    .six {
+       left: 49%;
+       top:96%;
+    }
+
+    .nine {
+       top: 52%;
+       left: 9%;
+    }
+
+  </style>
+</head>
+<body>
+
+    <div class="clock">
+        <img class="container" src="https://vignette.wikia.nocookie.net/harrypotter/images/e/ee/Hallows_Sign.svg/revision/latest?cb=20100212084714"/>
+      <div class="clock-face">
+          <div class="hand hour-hand"></div>
+          <div class="hand min-hand"></div>
+          <div class="hand sec-hand"></div>
+          <div class="twelve" id="twelve">12</div>
+          <div class="three" id="three">3</div>
+          <div class="six" id="six">6</div>
+          <div class="nine" id="nine">9</div>
+
+        </div>
+      </div>
+</div>
+</body>
+
+  <script>
+
+        const secHand = document.querySelector(".sec-hand");
+        const hourHand = document.querySelector(".hour-hand");
+        const minHand = document.querySelector(".min-hand");
+
+        function setDate(){
+            const now = new Date();
+            const sec = now.getSeconds();
+            const secDeg = ((sec/60)*360)+90;
+            const min = now.getMinutes();
+            const hour = now.getHours();
+            const minDeg = ((min/60)*360)+90;
+            const hourDeg = ((hour/12)*360)+90;
+
+            secHand.style.transform = `rotate(${secDeg}deg)`
+            hourHand.style.transform = `rotate(${hourDeg}deg)`
+            minHand.style.transform = `rotate(${minDeg}deg)`
+            console.log(sec)
+        }
+        setInterval(setDate, 1000)
+
+  </script>
+</body>
+</html>
